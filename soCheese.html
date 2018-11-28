@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SO cheese</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <link rel="shortcut icon" type="image/png" href="http://thefavicongallery.com/g/o/gotcancer.org.ico"/>
+
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Delius+Unicase');
+
+#reels {  
+  font-family: 'Delius Unicase', sans-serif;
+}
+
+#reels > div {
+  width: 12px;
+  overflow:hidden;
+  padding:3px;
+  display:inline-block;
+}
+
+#reels > div.end-of-word {
+  padding-right:14px;
+}
+
+#reels > div.reel-change {
+  animation: slideReel 1s 1;
+}
+
+@keyframes slideReel {
+  0% {
+      transform: translateY(0);
+      opacity:1;
+  }
+  49% {
+      transform: translateY(-30px);
+      opacity:0;
+  }
+  50% {
+      transform: translateY(30px);
+  }
+  100 % {
+      transform: translateY(0px);
+      opacity:1;
+  }
+}
+
+#reels {
+  margin-bottom:10px;
+}
+
+
+.myButton {
+	-moz-box-shadow: 0px 1px 0px 0px #1c1b18;
+	-webkit-box-shadow: 0px 1px 0px 0px #1c1b18;
+	box-shadow: 0px 1px 0px 0px #1c1b18;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #eae0c2), color-stop(1, #ccc2a6));
+	background:-moz-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background:-webkit-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background:-o-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background:-ms-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background:linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eae0c2', endColorstr='#ccc2a6',GradientType=0);
+	background-color:#eae0c2;
+	-moz-border-radius:15px;
+	-webkit-border-radius:15px;
+	border-radius:15px;
+	border:2px solid #333029;
+	display:inline-block;
+	cursor:pointer;
+	color:#505739;
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+	padding:12px 16px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ccc2a6), color-stop(1, #eae0c2));
+	background:-moz-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background:-webkit-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background:-o-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background:-ms-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background:linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ccc2a6', endColorstr='#eae0c2',GradientType=0);
+	background-color:#ccc2a6;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+body{
+background: #D1913C;
+background: -webkit-linear-gradient(to right, #D1913C, #FFD194);
+background: linear-gradient(to right, #D1913C, #FFD194);
+/*background: #FFAFBD;
+background: -webkit-linear-gradient(to left, #FFAFBD , #ffc3a0);
+background: linear-gradient(to left, #FFAFBD , #ffc3a0);*/
+     }   
+
+  </style>
+</head>
+<body>
+
+
+
+<div id="reels">
+  <div>X</div>
+  <div>I</div>
+  <div class="end-of-word">R</div>
+  <div>C</div>
+  <div>I</div>
+  <div>E</div>
+  <div>V</div>
+  <div class="end-of-word">W</div>
+  <div>W</div>
+  <div>X</div>
+  <div>E</div>
+  <div>G</div>
+  <div>O</div>
+  <div>S</div>
+  <div>Z</div>
+  <div>I</div>
+  <div>V</div>
+  <div>J</div>
+  <div>P</div>
+  <div>S</div>
+  <div class="end-of-word">A</div>
+</div>
+<p id="puzzle">Minimum pH of feta cheese = ?   <input style="width: 60px;" step="0.1" type="number" id="answer" placeholder="Answer" maxlength="3"><br></p>
+<a href="#" id="slide" class="myButton">OK, check!</a>
+
+</body>
+
+<script>
+$(function() {
+	$('#slide').click(function() {
+    		if($("#answer").val() != 4.4) {
+    	$('#slide').text("Try again..");
+        return;
+    }
+    $('#slide').hide();
+    setTimeout(hide_puzzle, 500);
+    setTimeout(decode, 1500);
+  });
+});
+
+function hide_puzzle() {
+    $('#puzzle').hide();
+}
+
+function decode() {
+  	var delay = 0;
+  	var reels = $('#reels').children().each(function() {
+    	var reel = this;
+    	setTimeout(function() {
+      	$(reel).toggleClass("reel-change");
+      }, delay);
+      setTimeout(function() {
+      	changeLetter(reel);
+      }, delay + 500);
+      setTimeout(function() {
+      	$(reel).toggleClass("reel-change");
+      }, delay + 1000);
+      delay += 200;
+    });
+}
+
+function changeLetter(el) {
+      el.innerHTML = incrementChar(el.innerHTML);
+}
+
+var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+function incrementChar(c) {
+    var index = alphabet.indexOf(c);
+    return alphabet[index + -4] || alphabet[index + -4 + 26] || alphabet[0];
+}
+</script>
+
+</html>
+
